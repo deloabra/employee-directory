@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import API from "./utils/API";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+
+  state = {
+    employees: []
+  };
+
+  componentDidMount(){
+    API.getUsers()
+    .then(result => this.setState({employees: result.data.results}))
+    .catch(err => console.log(err));
+  }
+
+  render() {
+    return(
+      <div>
+        {this.state.employees.map(element => <p key={element.id.value}>{element.name.first}</p>)}
+      </div>
+    );
+  }
 }
 
 export default App;
