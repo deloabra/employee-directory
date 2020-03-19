@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import API from "./utils/API";
+import EmployeeCard from "./components/EmployeeCard";
+
+//employeeList gets filled and then doesn't change after that
+var employeeList;
 
 class App extends Component{
 
@@ -9,14 +13,16 @@ class App extends Component{
 
   componentDidMount(){
     API.getUsers()
-    .then(result => this.setState({employees: result.data.results}))
+    .then((result) => employeeList = result.data.results)
+    .then(() => this.setState({employees: employeeList}))
     .catch(err => console.log(err));
   }
 
   render() {
     return(
       <div>
-        {this.state.employees.map(element => <p key={element.id.value}>{element.name.first}</p>)}
+        {this.state.employees.map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
+        email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
       </div>
     );
   }
