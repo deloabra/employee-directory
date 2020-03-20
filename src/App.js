@@ -17,6 +17,21 @@ function App(){
     .catch(err => console.log(err));
   }, []);
 
+  //filter by gender
+  const getGender = (gender) => {
+    return employees.filter((employee) => employee.gender === gender);
+  }
+
+  //sort by alphabet
+  const alphabetize = (direction) => {
+    if(direction === "inc"){
+      return employees.sort((emp1, emp2) => emp1.name.last.localeCompare(emp2.name.last));
+    }
+    else{
+      return employees.sort((emp1, emp2) => emp2.name.last.localeCompare(emp1.name.last));
+    }
+  }
+
   return(
     <div className="bg-dark">
       <Header/>
