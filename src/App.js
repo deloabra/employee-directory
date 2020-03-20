@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import API from "./utils/API";
 import EmployeeCard from "./components/EmployeeCard";
 import Header from "./components/Header";
+import SortForm from "./components/SortForm";
 
 //employeeList gets filled and then doesn't change after that
 var employeeList;
@@ -23,21 +25,54 @@ function App(){
   }
 
   //sort by alphabet
-  const alphabetize = (direction) => {
-    if(direction === "inc"){
-      return employees.sort((emp1, emp2) => emp1.name.last.localeCompare(emp2.name.last));
-    }
-    else{
-      return employees.sort((emp1, emp2) => emp2.name.last.localeCompare(emp1.name.last));
-    }
+  const alphabetize = (arr) => {
+    return arr.sort((emp1, emp2) => emp1.name.last.localeCompare(emp2.name.last));
   }
 
   return(
     <div className="bg-dark">
       <Header/>
       <div className="container">
-        {employees.map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
-        email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+        <SortForm/>
+        <Router>
+
+          <Route exact path="/">
+            {employees.map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
+            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+          </Route>
+
+          <Route exact path="/employee-directory">
+            {employees.map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
+            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+          </Route>
+
+          <Route exact path="/male">
+            {getGender("male").map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
+            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+          </Route>
+
+          <Route exact path="/female">
+            {getGender("female").map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
+            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+          </Route>
+
+          <Route exact path="/sort">
+            {alphabetize(employees).map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
+            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+          </Route>
+
+              {/* Unimplemented Routes */}
+          {/* <Route exact path="/male/sort">
+            {alphabetize(getGender("male")).map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
+            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+          </Route>
+
+          <Route exact path="/female/sort">
+            {alphabetize(getGender("female")).map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
+            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+          </Route> */}
+
+        </Router>
       </div>
     </div>
   );
