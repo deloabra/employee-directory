@@ -30,35 +30,45 @@ function App(){
   }
 
   return(
+    <Router>
     <div className="bg-dark">
       <Header/>
       <div className="container">
         <SortForm/>
-        <Router>
 
-          <Route exact path="/">
+          <Route path="/">
+            <div>
             {employees.map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
             email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+            </div>
           </Route>
 
-          <Route exact path="/employee-directory">
+          <Route path="/employee-directory">
+            <div>
             {employees.map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
             email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+            </div>
           </Route>
 
-          <Route exact path="/male">
+          <Route path="/male">
+            <div>
             {getGender("male").map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
             email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+            </div>
           </Route>
 
-          <Route exact path="/female">
+          <Route path="/female">
+            <div>
             {getGender("female").map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
             email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+            </div>
           </Route>
 
-          <Route exact path="/sort">
+          <Route path="/sort">
+            <div>
             {alphabetize(employees).map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
             email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
+            </div>
           </Route>
 
               {/* Unimplemented Routes */}
@@ -72,9 +82,9 @@ function App(){
             email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
           </Route> */}
 
-        </Router>
       </div>
     </div>
+    </Router>
   );
 }
 
