@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 import "./css/SortForm.css";
 
 function SortForm(){
@@ -10,7 +9,6 @@ function SortForm(){
     return (
         <div className="jumbotron">
             <div className="container d-flex justify-content-around flex-wrap">
-                <Router>
                     <Link to="/">
                         <button className={location.pathname === "/" ? "btn btn-warning" : "btn btn-success"}>
                             Default
@@ -31,7 +29,6 @@ function SortForm(){
                             Sort Alphabetically
                         </button>
                     </Link>
-                </Router>
             </div>
         </div>
     );

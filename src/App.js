@@ -29,6 +29,18 @@ function App(){
     return arr.sort((emp1, emp2) => emp1.name.last.localeCompare(emp2.name.last));
   }
 
+  const defaultSort = () => (employees.map(employee => <EmployeeCard key={employee.name.first+employee.name.last} firstName={employee.name.first} lastName={employee.name.last}
+    email={employee.email} phone={employee.phone} src={employee.picture.medium}/>));
+
+  const maleSort = () => (getGender("male").map(employee => <EmployeeCard key={employee.name.first+employee.name.last} firstName={employee.name.first} lastName={employee.name.last}
+    email={employee.email} phone={employee.phone} src={employee.picture.medium}/>));
+
+  const femaleSort = () => (getGender("female").map(employee => <EmployeeCard key={employee.name.first+employee.name.last} firstName={employee.name.first} lastName={employee.name.last}
+    email={employee.email} phone={employee.phone} src={employee.picture.medium}/>));
+
+  const alphaSort = () => (alphabetize(employees).map(employee => <EmployeeCard key={employee.name.first+employee.name.last} firstName={employee.name.first} lastName={employee.name.last}
+    email={employee.email} phone={employee.phone} src={employee.picture.medium}/>));
+
   return(
     <Router>
     <div className="bg-dark">
@@ -36,51 +48,11 @@ function App(){
       <div className="container">
         <SortForm/>
 
-          <Route path="/">
-            <div>
-            {employees.map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
-            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
-            </div>
-          </Route>
-
-          <Route path="/employee-directory">
-            <div>
-            {employees.map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
-            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
-            </div>
-          </Route>
-
-          <Route path="/male">
-            <div>
-            {getGender("male").map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
-            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
-            </div>
-          </Route>
-
-          <Route path="/female">
-            <div>
-            {getGender("female").map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
-            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
-            </div>
-          </Route>
-
-          <Route path="/sort">
-            <div>
-            {alphabetize(employees).map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
-            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
-            </div>
-          </Route>
-
-              {/* Unimplemented Routes */}
-          {/* <Route exact path="/male/sort">
-            {alphabetize(getGender("male")).map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
-            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
-          </Route>
-
-          <Route exact path="/female/sort">
-            {alphabetize(getGender("female")).map(employee => <EmployeeCard firstName={employee.name.first} lastName={employee.name.last}
-            email={employee.email} phone={employee.phone} src={employee.picture.medium}/>)}
-          </Route> */}
+        <Route exact path="/" component={defaultSort}/>
+        <Route exact path="/employee-directory" component={defaultSort}/>
+        <Route exact path="/male" component={maleSort}/>
+        <Route exact path="/female" component={femaleSort}/>
+        <Route exact path="/sort" component={alphaSort}/>
 
       </div>
     </div>
