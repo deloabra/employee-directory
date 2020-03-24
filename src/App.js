@@ -26,7 +26,8 @@ function App(){
 
   //sort by alphabet
   const alphabetize = (arr) => {
-    return arr.sort((emp1, emp2) => emp1.name.last.localeCompare(emp2.name.last));
+    let temp = arr.slice();
+    return temp.sort((emp1, emp2) => emp1.name.last.localeCompare(emp2.name.last));
   }
 
   const defaultSort = () => (employees.map(employee => <EmployeeCard key={employee.name.first+employee.name.last} firstName={employee.name.first} lastName={employee.name.last}
@@ -48,11 +49,10 @@ function App(){
       <div className="container">
         <SortForm/>
 
-        <Route exact path="/" component={defaultSort}/>
         <Route exact path="/employee-directory" component={defaultSort}/>
-        <Route exact path="/male" component={maleSort}/>
-        <Route exact path="/female" component={femaleSort}/>
-        <Route exact path="/sort" component={alphaSort}/>
+        <Route exact path="/employee-directory/male" component={maleSort}/>
+        <Route exact path="/employee-directory/female" component={femaleSort}/>
+        <Route exact path="/employee-directory/sort" component={alphaSort}/>
 
       </div>
     </div>
